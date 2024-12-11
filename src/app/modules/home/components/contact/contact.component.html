@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
+    <title>Markly</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="headerPpal">
+            <div>
+                <a href="/home">
+                    <img class="logo" src="./assets/images/Frame.png" alt="Frame" />
+                    <img class="logoname" src="./assets/images/Markly.png" alt="Markley" />
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/bags">Bags</a></li>
+                    <li><a href="/accesories">Accesories</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="logoshop">
+                <a href="https://www.bolsosmacoly.com/3-bolsos-en-sintetico"> <img
+                        src="./assets/images/shopping-bag-03.png" alt="shopping" name="encabezado" id="encabezado">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="tituloforms">
+            <h1 class="negrita-grande">Formulario de Contacto</h1>
+        </div>
+        <div class="formulario">
+               
+            <form [formGroup]="contactoForm" id="formularioContacto">    
+                <label class="labelf" for="nombre">Nombre:</label><br>
+                <input class="input1" type="text" id="nombre" name="nombre" placeholder="Ingrese el Nombre" formControlName="nombre"><br>
+                
+                <label class="labelf" for="apellido">Apellido:</label><br>
+                <input class="input1" type="text" id="apellido" name="apellido" placeholder="Ingrese el Apellido" formControlName="apellido"><br>
+
+                <label class="labelf" for="edad">Edad:</label><br>
+                <input class="input1" type="number" id="edad" name="edad" maxlength="110" placeholder="Seleccione la Edad" formControlName="edad"><br>
+
+                <label class="labelf" for="correo">Correo Electrónico:</label><br>
+                <input class="input1" type="email" id="correo" name="correo" placeholder="Ingrese el Correo Electrónico" formControlName="correo"><br>
+
+                <label class="labelf" for="fecha-nacimiento">Fecha de Nacimiento:</label><br>
+                <input class="input1" type="date" id="fecha-nacimiento" name="fecha-nacimiento" formControlName="fechaNacimiento"><br>
+
+                <label class="labelf" for="numero-contacto">Número de Contacto:</label><br>
+                <input class="input1" type="tel" id="numero-contacto" name="numero-contacto" placeholder="Ingrese el Número de Contacto" formControlName="numeroContacto"><br>
+
+                <label class="labelf" for="pais">País:</label><br>
+                <select class="selectf" id="pais" name="pais" formControlName="pais">
+                        <option value="" selected>Seleccione el País</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="México">México</option>
+                        <option value="Argentina">Argentina</option>
+                </select>
+                <br>
+                <button class="buttonf" type="submit" (click)="enviarFormulario()" [disabled]="contactoForm.invalid">Enviar</button>
+                <p id="mensajeError" class="d-none">Alguno de los campos del formulario no está diligenciado o es inválido</p>
+                <div *ngIf="contactoForm.get('nombre').invalid && (contactoForm.get('nombre').dirty || contactoForm.get('nombre').touched)"> 
+                    <div *ngIf="contactoForm.get('nombre').errors.required">El nombre es requerido.</div> 
+                    <div *ngIf="contactoForm.get('nombre').errors.maxlength">El nombre no puede tener más de 100 caracteres.</div> 
+                    <div *ngIf="contactoForm.get('nombre').errors.letrasInvalidas">El nombre solo puede contener letras.</div> 
+                </div>
+                <div *ngIf="contactoForm.get('apellido').invalid && (contactoForm.get('apellido').dirty || contactoForm.get('apellido').touched)"> 
+                    <div *ngIf="contactoForm.get('apellido').errors.required">El apellido es requerido.</div> 
+                    <div *ngIf="contactoForm.get('apellido').errors.maxlength">El apellido no puede tener más de 100 caracteres.</div> 
+                    <div *ngIf="contactoForm.get('apellido').errors.letrasInvalidas">El apellido solo puede contener letras.</div> 
+                </div>
+                <div *ngIf="contactoForm.get('edad').invalid && (contactoForm.get('edad').dirty || contactoForm.get('edad').touched)"> 
+                    <div *ngIf="contactoForm.get('edad').errors.required">La edad es requerida.</div> 
+                    <div *ngIf="contactoForm.get('edad').errors.minlength">La edad tiene un mínimo de 18 años.</div>
+                    <div *ngIf="contactoForm.get('edad').errors.maxlength">La edad tiene un máximo de 120 años.</div>  
+                </div>
+                <div *ngIf="contactoForm.get('correo').invalid && (contactoForm.get('correo').dirty || contactoForm.get('correo').touched)"> 
+                    <div *ngIf="contactoForm.get('correo').errors.required">El correo es requerido.</div>  
+                </div>
+                <div *ngIf="contactoForm.get('numeroContacto').invalid && (contactoForm.get('numeroContacto').dirty || contactoForm.get('numeroContacto').touched)"> 
+                    <div *ngIf="contactoForm.get('numeroContacto').errors.required">El numero de Contacto  es requerido.</div> 
+                    <div *ngIf="contactoForm.get('numeroContacto').errors.maxlength">El numero de Contacto tiene un máximo de 15 caracteres</div>  
+                </div>
+                <div *ngIf="contactoForm.get('fechaNacimiento').invalid && (contactoForm.get('fechaNacimiento').dirty || contactoForm.get('fechaNacimiento').touched)"> 
+                    <div *ngIf="contactoForm.get('fechaNacimiento').errors.required">La fecha de Nacimiento es requerida.</div> 
+                </div>   
+                <div *ngIf="contactoForm.get('pais').invalid && (contactoForm.get('pais').dirty || contactoForm.get('pais').touched)"> 
+                    <div *ngIf="contactoForm.get('pais').errors.required">El país es requerido.</div> 
+                </div>  
+            </form>
+        </div>
+
+        <div class="tituloforms">
+            <h1 class="negrita-grande">Visita nuestras tiendas. </h1>
+        </div>
+        <div>
+            <div class="map2">
+                <div>
+                    <h2 class="negrita-grande">New York</h2>
+                </div>
+                <div>
+                    <h2 class="negrita-grande">Panama</h2>
+                </div>
+            </div>
+            <div class="map2">
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387084.77436820934!2d-74.25986415229187!3d40.697670005650504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1621458397977!5m2!1sen!2s"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4042068.8671730557!2d-82.75390365552462!3d8.368878777548757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa61583c8be2be3%3A0x79eee04d1fa59bcf!2sPanama!5e0!3m2!1sen!2sus!4v1716296772822!5m2!1sen!2sus"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <hr>
+        <div class="footer_div">
+            <div class="izquierda">
+                <div class="footerizquierdat"><a href="/home"><img src="./assets/images/Property 1=Black.png" alt="Markly" /></a></div>
+                <p>
+                 We believe in the power of a well-crafted bag to enhance your lifestyle. Explore our curated
+                collection of
+                premium bags
+                that seamlessly blend style, functionality, and durability.
+                </p>
+                <!-- Contenido del div izquierdo -->
+            </div>
+            <div class="derecha">
+                <div class="links">
+                <ul>
+                    <li><b>Company</b></li>
+                    <br>
+                    <li><a href="/bags">Bags</a></li>
+                    <li><a href="/blog">Blogs</a></li>
+                    <li><a href="/contact">Community</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                </div>
+                <div class="links">
+                <ul>
+                    <li><b>Services</b></li>
+                    <br>
+                    <li><a href="/home">Bussines</a></li>
+                    <li><a href="/home">Modifications</a></li>
+                    <li><a href="/home">Morgans Care</a></li>
+                    <li><a href="/home">Insurance</a></li>
+                    <li><a href="/home">Warranty</a></li>
+                </ul>
+                </div>
+                <div class="links">
+                <ul>
+                    <li><b>Resource</b></li>
+                    <br>
+                    <li><a href="/home">News</a></li>
+                    <li><a href="/home">Newsletter</a></li>
+                    <li><a href="/home">Careers</a></li>
+                    <li><a href="/home">FAQS</a></li>
+                    <li><a href="/home">Review</a></li>
+                </ul>
+                </div>
+                <div class="links">
+                <ul>
+                    <li><b>Legal</b></li>
+                    <br>
+                    <li><a href="/home">Privacy Policy</a></li>
+                    <li><a href="/home">Tems of Used</a></li>
+                    <li><a href="/home">Cookies</a></li>
+                    <li><a href="/home">Sitemap</a></li>
+                </ul>
+                </div>
+            </div>
+        </div><hr>
+        <div class="abajo">
+            <h3>©2024 Markly. All right reserved. </h3>
+            <div class="footer__social">    
+                <a class=" footer__icons" href="https://www.facebook.com/" target="_blank"><img class="footer__img"
+                    src="./assets/images/facebook (2).png"></a>
+        
+                <a class="footer__icons" href="https://www.twitter.com/" target="_blank"><img class="footer__img"
+                    src="./assets/images/gorjeo.png"></a>
+        
+                <a class="footer__icons" href="https://www.instagram.com/" target="_blank"><img class="footer__img"
+                    src="./assets/images/instagram (1).png"></a>
+        
+                <a class="footer__icons" href="https://www.linkedin.com/" target="_blank"><img class="footer__img"
+                    src="./assets/images/linkedin (1).png"></a>
+        
+                <a class="footer__icons" href="https://www.youtube.com/" target="_blank"><img class="footer__img"
+                    src="./assets/images/youtube (1).png"></a>    
+            </div>
+        </div>
+    </footer>
+    <script src="./js/validarContacto.js"></script>
+</body>
+
+</html>
